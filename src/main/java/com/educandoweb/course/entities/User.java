@@ -8,22 +8,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class User implements Serializable{
+public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	private String name;
 	private String email;
 	private String phone;
 	private String password;
 	
 	public User() {
-		
 	}
 
-	public User(long id, String name, String email, String phone, String password) {
+	public User(Long id, String name, String email, String phone, String password) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -32,11 +31,11 @@ public class User implements Serializable{
 		this.password = password;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -56,11 +55,11 @@ public class User implements Serializable{
 		this.email = email;
 	}
 
-	public String getphone() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setphone(String phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
@@ -76,7 +75,7 @@ public class User implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -89,9 +88,11 @@ public class User implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (id != other.id)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
-		
 }
