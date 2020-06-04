@@ -11,27 +11,27 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_order_item")
-public class OrderItem implements Serializable{
+public class OrderItem implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@EmbeddedId
 	private OrderItemPK id = new OrderItemPK();
 	
-	private Integer quantaty;
+	private Integer quantity;
 	private Double price;
 	
 	public OrderItem() {
 	}
 
-	public OrderItem(Order order, Product product, Integer quantaty, Double price) {
+	public OrderItem(Order order, Product product, Integer quantity, Double price) {
 		super();
 		id.setOrder(order);
 		id.setProduct(product);
-		this.quantaty = quantaty;
+		this.quantity = quantity;
 		this.price = price;
 	}
-	
-	
+
+	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();
 	}
@@ -40,7 +40,6 @@ public class OrderItem implements Serializable{
 		id.setOrder(order);
 	}
 	
-	@JsonIgnore
 	public Product getProduct() {
 		return id.getProduct();
 	}
@@ -49,13 +48,12 @@ public class OrderItem implements Serializable{
 		id.setProduct(product);
 	}
 	
-
-	public Integer getQuantaty() {
-		return quantaty;
+	public Integer getQuantity() {
+		return quantity;
 	}
 
-	public void setQuantaty(Integer quantaty) {
-		this.quantaty = quantaty;
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 
 	public Double getPrice() {
@@ -66,6 +64,10 @@ public class OrderItem implements Serializable{
 		this.price = price;
 	}
 
+	public Double getSubTotal() {
+		return price * quantity;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -90,5 +92,4 @@ public class OrderItem implements Serializable{
 			return false;
 		return true;
 	}
-	
 }
